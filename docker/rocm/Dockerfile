@@ -1,4 +1,4 @@
-FROM rocm/dev-ubuntu-24.04:6.4.4-complete
+FROM rocm/dev-ubuntu-24.04:7.1.1-complete
 ENV DEBIAN_FRONTEND=noninteractive \
     PHONEMIZER_ESPEAK_PATH=/usr/bin \
     PHONEMIZER_ESPEAK_DATA=/usr/share/espeak-ng-data \
@@ -50,12 +50,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --extra rocm
 
 # Run kdb files (shape files for MIOpen)
-ENV ROCM_VERSION=6.4.4
+ENV ROCM_VERSION=7.1.1
 COPY --chown=appuser:appuser docker/rocm/kdb_install.sh /tmp/
 RUN /tmp/kdb_install.sh
 
 # Support older GFX Arch
-ENV ROCBLAS_VERSION=6.4.4-1
+ENV ROCBLAS_VERSION=7.1.1-1
 RUN cd /tmp && wget https://archive.archlinux.org/packages/r/rocblas/rocblas-${ROCBLAS_VERSION}-x86_64.pkg.tar.zst -O rocblas.tar.zst \
     && pwd && ls -lah ./ \
     && tar --zstd -xvf rocblas.tar.zst && rm rocblas.tar.zst \

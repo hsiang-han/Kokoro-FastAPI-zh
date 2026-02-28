@@ -1,3 +1,24 @@
+## 本版本变更说明 / Fork Changes
+
+> 本仓库基于 [remsky/Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) 修改，以下为相对上游的主要变更。
+> This repository is forked from [remsky/Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI). Key changes from upstream are listed below.
+
+### PyTorch & CUDA 升级（支持 RTX 50 系列 GPU）/ PyTorch & CUDA Upgrade (RTX 50-series GPU Support)
+
+升级 PyTorch 至 2.10.0，并将 CUDA 从 12.9（cu129）切换至 12.8（cu128），以获得对 NVIDIA Blackwell 架构（RTX 5060–5090，sm_120）的官方支持。
+Upgraded PyTorch to 2.10.0 and switched CUDA from 12.9 (cu129) to 12.8 (cu128) for official NVIDIA Blackwell architecture support (RTX 5060–5090, sm_120).
+
+| 文件 / File | 变更 / Change |
+|---|---|
+| `pyproject.toml` | `torch 2.8.0+cu129` → `torch 2.10.0+cu128` |
+| `docker/gpu/Dockerfile` | 基础镜像 / Base image: `cuda:12.9.1` → `cuda:12.8.1-cudnn-devel` |
+| `pyproject.toml` (ROCm) | `torch 2.8.0+rocm6.4` → `torch 2.10.0+rocm7.1` |
+| `docker/rocm/Dockerfile` | 基础镜像 / Base image: `rocm 6.4.4` → `rocm 7.1.1` |
+
+参考 / References: [Issue #365](https://github.com/remsky/Kokoro-FastAPI/issues/365) · [PR #390](https://github.com/remsky/Kokoro-FastAPI/pull/390)
+
+---
+
 <p align="center">
   <img src="githubbanner.png" alt="Kokoro TTS Banner">
 </p>
