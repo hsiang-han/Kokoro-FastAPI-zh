@@ -45,9 +45,9 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 - 已完成实测：NVIDIA RTX 50 系列（Blackwell）+ CUDA 路线。
 - 当前未实测：ROCm（受限于测试硬件条件），相关支持为配置级/依赖级适配，欢迎社区反馈。
 
-## 源码编译部署 / Source Deployment
+## 部署方式一：源码编译部署 / Source Deployment
 
-### Docker Compose（小白步骤）
+### Docker Compose
 
 按下面步骤执行，第一次部署也可以成功。
 
@@ -107,7 +107,7 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 - Unraid / Compose Stack（CPU）：`docker/unraid/stack.cpu.image.yml`
 - Unraid CA 模板：`unraid/templates/kokoro-fastapi-gpu.xml`
 
-### Unraid 可视化 Docker Compose 部署（不需要编译源码）
+### 部署方式二：Unraid 可视化 Docker Compose 部署（不需要编译源码）
 
 下面是只用 Unraid 网页界面完成部署的方法。
 
@@ -155,8 +155,8 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                            count: all
-                            capabilities: [gpu]
+                          count: all
+                          capabilities: [gpu]
 ```
 
 **CPU**
