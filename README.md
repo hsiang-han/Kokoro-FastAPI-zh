@@ -68,6 +68,11 @@ Dockerized FastAPI wrapper for [Kokoro-82M](https://huggingface.co/hexgrad/Kokor
 ### Integration Guides
  [![Helm Chart](https://img.shields.io/badge/Helm%20Chart-black?style=flat&logo=helm&logoColor=white)](https://github.com/remsky/Kokoro-FastAPI/wiki/Setup-Kubernetes) [![DigitalOcean](https://img.shields.io/badge/DigitalOcean-black?style=flat&logo=digitalocean&logoColor=white)](https://github.com/remsky/Kokoro-FastAPI/wiki/Integrations-DigitalOcean) [![SillyTavern](https://img.shields.io/badge/SillyTavern-black?style=flat&color=red)](https://github.com/remsky/Kokoro-FastAPI/wiki/Integrations-SillyTavern)
 [![OpenWebUI](https://img.shields.io/badge/OpenWebUI-black?style=flat&color=white)](https://github.com/remsky/Kokoro-FastAPI/wiki/Integrations-OpenWebUi)
+
+- Docker 免源码部署 + Unraid 上架说明: `docs/deployment/unraid-and-prebuilt-images.md`
+- Unraid Stack 示例: `docker/unraid/stack.gpu.image.yml` / `docker/unraid/stack.cpu.image.yml`
+- Unraid CA 模板: `unraid/templates/kokoro-fastapi-gpu.xml`
+
 ## Get Started
 
 <details>

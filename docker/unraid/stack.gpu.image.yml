@@ -1,0 +1,28 @@
+name: kokoro-fastapi-gpu
+
+services:
+  kokoro-fastapi:
+    image: ${KOKORO_IMAGE:-ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:latest}
+    container_name: kokoro-fastapi-gpu
+    restart: unless-stopped
+    ports:
+      - "${KOKORO_PORT:-8880}:8880"
+    environment:
+      - USE_GPU=true
+      - REPO_ID=${REPO_ID:-hexgrad/Kokoro-82M-v1.1-zh}
+      - DEFAULT_VOICE=${DEFAULT_VOICE:-zf_094}
+      - KOKORO_V1_FILE=${KOKORO_V1_FILE:-v1_1_zh/kokoro-v1_1-zh.pth}
+      - VOICES_DIR=/app/api/src/voices/v1_1_zh
+      - DEFAULT_VOICE_CODE=${DEFAULT_VOICE_CODE:-}
+      - API_LOG_LEVEL=${API_LOG_LEVEL:-INFO}
+    volumes:
+      - ${KOKORO_MODELS_PATH:-/mnt/user/appdata/kokoro-fastapi/models}:/app/api/src/models/v1_1_zh
+      - ${KOKORO_VOICES_PATH:-/mnt/user/appdata/kokoro-fastapi/voices}:/app/api/src/voices/v1_1_zh
+      - ${KOKORO_OUTPUT_PATH:-/mnt/user/appdata/kokoro-fastapi/output}:/app/output
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

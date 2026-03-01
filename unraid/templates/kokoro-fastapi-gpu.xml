@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Kokoro-FastAPI-v1.1-zh</Name>
+  <Repository>ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:latest</Repository>
+  <Registry>https://ghcr.io</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/issues</Support>
+  <Project>https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh</Project>
+  <Overview>OpenAI-compatible TTS API based on Kokoro-82M-v1.1-zh. Includes /v1/audio/speech endpoint and web UI.</Overview>
+  <Category>Network:Web Network:Other</Category>
+  <WebUI>http://[IP]:[PORT:8880]/web</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/unraid/templates/kokoro-fastapi-gpu.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/webui-screenshot.png</Icon>
+
+  <Config Name="WebUI Port" Target="8880" Default="8880" Mode="tcp" Description="Web/API exposed port" Type="Port" Display="always" Required="true" Mask="false">8880</Config>
+
+  <Config Name="Models Path" Target="/app/api/src/models/v1_1_zh" Default="/mnt/user/appdata/kokoro-fastapi/models" Mode="rw" Description="Host path for model files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi/models</Config>
+
+  <Config Name="Voices Path" Target="/app/api/src/voices/v1_1_zh" Default="/mnt/user/appdata/kokoro-fastapi/voices" Mode="rw" Description="Host path for voice .pt files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi/voices</Config>
+
+  <Config Name="Output Path" Target="/app/output" Default="/mnt/user/appdata/kokoro-fastapi/output" Mode="rw" Description="Host path for generated output files" Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/kokoro-fastapi/output</Config>
+
+  <Config Name="Repo ID" Target="REPO_ID" Default="hexgrad/Kokoro-82M-v1.1-zh" Mode="" Description="HuggingFace model repo" Type="Variable" Display="advanced" Required="true" Mask="false">hexgrad/Kokoro-82M-v1.1-zh</Config>
+
+  <Config Name="Default Voice" Target="DEFAULT_VOICE" Default="zf_094" Mode="" Description="Default voice name" Type="Variable" Display="always" Required="true" Mask="false">zf_094</Config>
+
+  <Config Name="Default Voice Code" Target="DEFAULT_VOICE_CODE" Default="" Mode="" Description="Optional language code override. Set z to force zh pipeline." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+
+  <Config Name="Model File" Target="KOKORO_V1_FILE" Default="v1_1_zh/kokoro-v1_1-zh.pth" Mode="" Description="Model path relative to /app/api/src/models" Type="Variable" Display="advanced" Required="true" Mask="false">v1_1_zh/kokoro-v1_1-zh.pth</Config>
+
+  <Config Name="Voices Dir" Target="VOICES_DIR" Default="/app/api/src/voices/v1_1_zh" Mode="" Description="Voice directory in container" Type="Variable" Display="advanced" Required="true" Mask="false">/app/api/src/voices/v1_1_zh</Config>
+
+  <Config Name="Use GPU" Target="USE_GPU" Default="true" Mode="" Description="Set true for NVIDIA GPU runtime" Type="Variable" Display="advanced" Required="true" Mask="false">true</Config>
+
+  <Config Name="NVIDIA Visible Devices" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="NVIDIA runtime device filter" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
+
+  <Config Name="NVIDIA Driver Caps" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="NVIDIA runtime capabilities" Type="Variable" Display="advanced" Required="false" Mask="false">compute,utility</Config>
+</Container>
