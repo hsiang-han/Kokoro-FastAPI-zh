@@ -36,6 +36,7 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 - [免源码部署入口 / No-source Deployment Entry](#免源码部署入口--no-source-deployment-entry)
 - [镜像标签策略 / Image Tagging Strategy](#镜像标签策略--image-tagging-strategy)
 - [最小环境变量 / Minimal Environment Variables](#最小环境变量--minimal-environment-variables)
+- [切换到 v1.0（英文模型） / Switch to v1.0](#切换到-v10英文模型--switch-to-v10)
 - [Get Started](#get-started)
 
 ## 测试范围说明 / Testing Scope
@@ -87,6 +88,50 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 
 - `./models/v1_1_zh/kokoro-v1_1-zh.pth`
 - `./voices/v1_1_zh/*.pt`
+
+## 切换到 v1.0（英文模型） / Switch to v1.0
+
+本分支默认是 v1.1-zh。如果你要切换到 v1.0（英文模型），请使用：
+
+- GPU v1.0 配置文件：`docker/gpu/stack.v1_0.yml`
+
+### 1) 准备目录
+
+在 `docker/gpu/` 下准备：
+
+- `models/v1_0/`
+- `voices/v1_0/`
+
+### 2) 下载模型与语音（来源）
+
+- 模型仓库（v1.0）：https://huggingface.co/hexgrad/Kokoro-82M
+- 语音目录： https://huggingface.co/hexgrad/Kokoro-82M/tree/main/voices
+
+推荐使用 Hugging Face CLI 下载（在 `docker/gpu` 目录执行）：
+
+```bash
+huggingface-cli download hexgrad/Kokoro-82M kokoro-v1_0.pth config.json --local-dir ./models/v1_0
+huggingface-cli download hexgrad/Kokoro-82M --include "voices/*.pt" --local-dir ./_tmp_kokoro_v1_0
+cp ./_tmp_kokoro_v1_0/voices/*.pt ./voices/v1_0/
+```
+
+> Windows PowerShell 可将最后一行替换为：
+>
+> `Copy-Item .\_tmp_kokoro_v1_0\voices\*.pt .\voices\v1_0\`
+
+### 3) 启动 v1.0 配置
+
+在 `docker/gpu/` 目录执行：
+
+```bash
+docker compose -f stack.v1_0.yml up --build
+```
+
+该配置已预设：
+
+- `REPO_ID=hexgrad/Kokoro-82M`
+- `KOKORO_V1_FILE=v1_0/kokoro-v1_0.pth`
+- `VOICES_DIR=/app/api/src/voices/v1_0`
 
 <p align="center">
   <img src="githubbanner.png" alt="Kokoro TTS Banner">

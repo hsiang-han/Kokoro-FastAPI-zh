@@ -1,0 +1,31 @@
+name: kokoro-fastapi-v1_0-gpu
+services:
+  kokoro-tts:
+    image: kokoro-fastapi-v1.0-gpu
+    container_name: kokoro-fastapi-v1_0-gpu
+    build:
+      context: ../..
+      dockerfile: docker/gpu/Dockerfile
+    volumes:
+      - ../../api:/app/api
+      - ./models:/app/api/src/models
+      - ./voices:/app/api/src/voices
+    user: "1001:1001"
+    ports:
+      - "8880:8880"
+    environment:
+      - PYTHONPATH=/app:/app/api
+      - USE_GPU=true
+      - PYTHONUNBUFFERED=1
+      - REPO_ID=hexgrad/Kokoro-82M
+      - DEFAULT_VOICE=af_bella
+      - KOKORO_V1_FILE=v1_0/kokoro-v1_0.pth
+      - VOICES_DIR=/app/api/src/voices/v1_0
+      - API_LOG_LEVEL=DEBUG
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
