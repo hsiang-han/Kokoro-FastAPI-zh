@@ -116,6 +116,7 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 - 你已经安装并启用 Unraid 的 Docker 功能
 - 你已经安装 Docker Compose Manager（或可创建 Stack 的 Compose 插件）
 - 如果用 GPU 版，主机需已配置 NVIDIA 驱动/runtime
+- 已创建挂载目录并配置好权限（参见 [挂载目录权限问题](#6-挂载目录权限问题permission-denied)）
 
 #### 2) 在 Unraid WebUI 创建 Stack
 
