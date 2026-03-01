@@ -7,8 +7,8 @@ services:
       dockerfile: docker/gpu/Dockerfile
     volumes:
       - ../../api:/app/api
-      - ./models:/app/api/src/models/v1_1_zh
-      - ./voices:/app/api/src/voices/v1_1_zh
+      - ./models:/mnt/user/appdata/kokoro-fastapi-v1_1_zh/data/src/models/
+      - ./voices:/mnt/user/appdatakokoro-fastapi-v1_1_zh/data/src/voices/
     user: "1001:1001"  # Ensure container runs as UID 1001 (appuser)
     ports:
       - "8880:8880"
