@@ -34,9 +34,15 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         enable-cache: true
+
     - name: Install dependencies
       run: |
-        uv pip install -e .[test,cpu]
+        uv sync --extra test --extra cpu
+
+    - name: Verify torch runtime
+      run: |
+        uv run python -c "import torch; print('torch=', torch.__version__); print('cuda_available=', torch.cuda.is_available())"
+
     - name: Run Tests
       run: |
         uv run pytest api/tests/ --asyncio-mode=auto --cov=api --cov-report=term-missing
