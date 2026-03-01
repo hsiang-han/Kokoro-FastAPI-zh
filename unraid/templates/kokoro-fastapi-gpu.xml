@@ -13,15 +13,15 @@
   <Category>Network:Web Network:Other</Category>
   <WebUI>http://[IP]:[PORT:8880]/web</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/unraid/templates/kokoro-fastapi-gpu.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/webui-screenshot.png</Icon>
+  <Icon>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/unraid-icon.png</Icon>
 
   <Config Name="WebUI Port" Target="8880" Default="8880" Mode="tcp" Description="Web/API exposed port" Type="Port" Display="always" Required="true" Mask="false">8880</Config>
 
-  <Config Name="Models Path" Target="/app/api/src/models" Default="/mnt/user/appdata/kokoro-fastapi/models" Mode="rw" Description="Host path for model files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi/models</Config>
+  <Config Name="Models Path" Target="/app/api/src/models" Default="/mnt/user/appdata/kokoro-fastapi-v1_1_zh/models" Mode="rw" Description="Host path for model files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi-v1_1_zh/models</Config>
 
-  <Config Name="Voices Path" Target="/app/api/src/voices" Default="/mnt/user/appdata/kokoro-fastapi/voices" Mode="rw" Description="Host path for voice .pt files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi/voices</Config>
+  <Config Name="Voices Path" Target="/app/api/src/voices" Default="/mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices" Mode="rw" Description="Host path for voice .pt files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices</Config>
 
-  <Config Name="Output Path" Target="/app/output" Default="/mnt/user/appdata/kokoro-fastapi/output" Mode="rw" Description="Host path for generated output files" Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/kokoro-fastapi/output</Config>
+  <Config Name="Output Path" Target="/app/output" Default="/mnt/user/appdata/kokoro-fastapi-v1_1_zh/output" Mode="rw" Description="Host path for generated output files" Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/kokoro-fastapi-v1_1_zh/output</Config>
 
   <Config Name="Repo ID" Target="REPO_ID" Default="hexgrad/Kokoro-82M-v1.1-zh" Mode="" Description="HuggingFace model repo" Type="Variable" Display="advanced" Required="true" Mask="false">hexgrad/Kokoro-82M-v1.1-zh</Config>
 

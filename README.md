@@ -33,6 +33,7 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 ## 快速导航 / Quick Navigation
 
 - [测试范围说明 / Testing Scope](#测试范围说明--testing-scope)
+- [源码部署 / Source Deployment](#源码部署--source-deployment)
 - [免源码部署入口 / No-source Deployment Entry](#免源码部署入口--no-source-deployment-entry)
 - [镜像标签策略 / Image Tagging Strategy](#镜像标签策略--image-tagging-strategy)
 - [最小环境变量 / Minimal Environment Variables](#最小环境变量--minimal-environment-variables)
@@ -44,12 +45,161 @@ Upgraded to PyTorch 2.10.0 with CUDA cu128 (12.8) for NVIDIA Blackwell support.
 - 已完成实测：NVIDIA RTX 50 系列（Blackwell）+ CUDA 路线。
 - 当前未实测：ROCm（受限于测试硬件条件），相关支持为配置级/依赖级适配，欢迎社区反馈。
 
+## 源码编译部署 / Source Deployment
+
+### Docker Compose（小白步骤）
+
+按下面步骤执行，第一次部署也可以成功。
+
+1. 准备环境
+        - 安装并启动 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+        - 打开终端，确认 Docker 可用：
+            ```bash
+            docker --version
+            docker compose version
+            ```
+
+2. 拉取代码（使用本仓库）
+        ```bash
+        git clone https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh.git
+        cd Kokoro-FastAPI-v1.1_zh
+        ```
+
+3. 选择运行模式（只选一个）
+        - NVIDIA 显卡：
+            ```bash
+            cd docker/gpu
+            ```
+        - CPU（无 NVIDIA 显卡 / Apple Silicon / 仅想先跑通）：
+            ```bash
+            cd docker/cpu
+            ```
+
+4. 启动服务
+        ```bash
+        docker compose up --build
+        ```
+        - 首次启动会自动下载模型与语音，可能需要几分钟，请等待日志出现 `Uvicorn running on`。
+
+5. 验证是否启动成功
+        - 浏览器打开：`http://localhost:8880/docs`（能打开即成功）
+        - Linux/macOS 终端验证：
+            ```bash
+            curl http://localhost:8880/v1/models
+            ```
+        - Windows PowerShell 验证：
+            ```powershell
+            Invoke-RestMethod http://localhost:8880/v1/models
+            ```
+
+6. 常用后续操作
+        - 停止服务：在当前终端按 `Ctrl + C`
+        - 后台运行：`docker compose up -d`
+        - 查看日志：`docker compose logs -f`
+        - 更新后重建：`docker compose up --build -d`
+
+> 提示：如果你是 M1/M2/M3 Mac，请使用 `docker/cpu`。当前 GPU compose 依赖 CUDA，不支持 Apple Silicon。
+
 ## 免源码部署入口 / No-source Deployment Entry
 
 - 部署文档：`docs/deployment/unraid-and-prebuilt-images.md`
 - Unraid / Compose Stack（GPU）：`docker/unraid/stack.gpu.image.yml`
 - Unraid / Compose Stack（CPU）：`docker/unraid/stack.cpu.image.yml`
 - Unraid CA 模板：`unraid/templates/kokoro-fastapi-gpu.xml`
+
+### Unraid 可视化 Docker Compose 部署（不需要编译源码）
+
+下面是只用 Unraid 网页界面完成部署的方法。
+
+#### 1) 前置条件
+
+- 你已经安装并启用 Unraid 的 Docker 功能
+- 你已经安装 Docker Compose Manager（或可创建 Stack 的 Compose 插件）
+- 如果用 GPU 版，主机需已配置 NVIDIA 驱动/runtime
+
+#### 2) 在 Unraid WebUI 创建 Stack
+
+1. 进入 `Docker` 页面，打开 `Compose` / `Stacks` 管理页面
+2. 点击 `Add New Stack`
+3. Stack 名称建议填：`kokoro-fastapi-gpu`（或 `kokoro-fastapi-cpu`）
+4. 将下面对应 YAML 直接粘贴到编辑框
+
+#### 3) 粘贴 YAML（GPU 二选一）
+
+**GPU（NVIDIA）**
+
+```yaml
+name: kokoro-fastapi-gpu
+
+services:
+    kokoro-fastapi:
+        image: ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:latest
+        container_name: kokoro-fastapi-gpu
+        restart: unless-stopped
+        ports:
+            - "8880:8880"
+        environment:
+            - USE_GPU=true
+            - REPO_ID=hexgrad/Kokoro-82M-v1.1-zh
+            - DEFAULT_VOICE=zf_094
+            - KOKORO_V1_FILE=v1_1_zh/kokoro-v1_1-zh.pth
+            - VOICES_DIR=/app/api/src/voices/v1_1_zh
+            - DEFAULT_VOICE_CODE=z
+            - API_LOG_LEVEL=INFO
+        volumes:
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/models:/app/api/src/models
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices:/app/api/src/voices
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/output:/app/output
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                            count: all
+                            capabilities: [gpu]
+```
+
+**CPU**
+
+```yaml
+name: kokoro-fastapi-cpu
+
+services:
+    kokoro-fastapi:
+        image: ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:latest
+        container_name: kokoro-fastapi-cpu
+        restart: unless-stopped
+        ports:
+            - "8880:8880"
+        environment:
+            - USE_GPU=false
+            - REPO_ID=hexgrad/Kokoro-82M-v1.1-zh
+            - DEFAULT_VOICE=zf_094
+            - KOKORO_V1_FILE=v1_1_zh/kokoro-v1_1-zh.pth
+            - VOICES_DIR=/app/api/src/voices/v1_1_zh
+            - DEFAULT_VOICE_CODE=z
+            - API_LOG_LEVEL=INFO
+        volumes:
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/models:/app/api/src/models
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices:/app/api/src/voices
+            - /mnt/user/appdata/kokoro-fastapi-v1_1_zh/output:/app/output
+```
+
+#### 4) 部署与验证
+
+1. 点击 `Deploy`
+2. 首次启动会自动下载模型/语音到：
+    - `/mnt/user/appdata/kokoro-fastapi-v1_1_zh/models/v1_1_zh/`
+    - `/mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices/v1_1_zh/`
+3. 在容器日志看到 `Uvicorn running on` 后，浏览器打开：`http://<你的UnraidIP>:8880/docs`
+4. 能打开接口文档页面即部署成功
+
+#### 5) 新手常见问题
+
+- 端口冲突：把 YAML 里的 `8880:8880` 改成 `18880:8880`（外部端口可改）
+- 拉取镜像失败：确认 Unraid 主机能访问 GHCR，必要时先手动 pull
+- GPU 不生效：确认已安装 NVIDIA 驱动插件并启用 Docker 的 NVIDIA runtime
+- 想固定版本：将 `:latest` 改为固定 tag（如 `:v0.2.4-zh`）
 
 ## 镜像标签策略 / Image Tagging Strategy
 
@@ -189,29 +339,45 @@ docker run --gpus all -p 8880:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest  #NV
 
 <summary>Quick Start (docker compose) </summary>
 
+For detailed source-based deployment steps, see the Chinese section above:
+`源码部署 / Source Deployment`.
+
+Quick command reference:
+
+```bash
+git clone https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh.git
+cd Kokoro-FastAPI-v1.1_zh
+cd docker/gpu   # or: cd docker/cpu
+docker compose up --build
+```
+
+Apple Silicon (M1/M2/M3) users should use `docker/cpu`.
+
+Original detailed steps (kept for compatibility):
+
 1. Install prerequisites, and start the service using Docker Compose (Full setup including UI):
    - Install [Docker](https://www.docker.com/products/docker-desktop/)
    - Clone the repository:
-        ```bash
-        git clone https://github.com/remsky/Kokoro-FastAPI.git
-        cd Kokoro-FastAPI
+    ```bash
+    git clone https://github.com/remsky/Kokoro-FastAPI.git
+    cd Kokoro-FastAPI
 
-        cd docker/gpu  # For GPU support
-        # or cd docker/cpu  # For CPU support
-        docker compose up --build
+    cd docker/gpu  # For GPU support
+    # or cd docker/cpu  # For CPU support
+    docker compose up --build
 
-        # *Note for Apple Silicon (M1/M2) users:
-        # The current GPU build relies on CUDA, which is not supported on Apple Silicon.  
-        # If you are on an M1/M2/M3 Mac, please use the `docker/cpu` setup.  
-        # MPS (Apple's GPU acceleration) support is planned but not yet available.
+    # *Note for Apple Silicon (M1/M2) users:
+    # The current GPU build relies on CUDA, which is not supported on Apple Silicon.
+    # If you are on an M1/M2/M3 Mac, please use the `docker/cpu` setup.
+    # MPS (Apple's GPU acceleration) support is planned but not yet available.
 
-        # Models will auto-download, but if needed you can manually download:
-        python docker/scripts/download_model.py --output api/src/models/v1_1_zh --voices-output api/src/voices/v1_1_zh
+    # Models will auto-download, but if needed you can manually download:
+    python docker/scripts/download_model.py --output api/src/models/v1_1_zh --voices-output api/src/voices/v1_1_zh
 
-        # Or run directly via UV:
-        ./start-gpu.sh  # For GPU support
-        ./start-cpu.sh  # For CPU support
-        ```
+    # Or run directly via UV:
+    ./start-gpu.sh  # For GPU support
+    ./start-cpu.sh  # For CPU support
+    ```
 </details>
 <details>
 <summary>Direct Run (via uv) </summary>

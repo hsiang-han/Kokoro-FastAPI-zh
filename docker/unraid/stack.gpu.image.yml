@@ -16,9 +16,9 @@ services:
       - DEFAULT_VOICE_CODE=${DEFAULT_VOICE_CODE:-}
       - API_LOG_LEVEL=${API_LOG_LEVEL:-INFO}
     volumes:
-      - ${KOKORO_MODELS_PATH:-/mnt/user/appdata/kokoro-fastapi/models}:/app/api/src/models
-      - ${KOKORO_VOICES_PATH:-/mnt/user/appdata/kokoro-fastapi/voices}:/app/api/src/voices
-      - ${KOKORO_OUTPUT_PATH:-/mnt/user/appdata/kokoro-fastapi/output}:/app/output
+      - ${KOKORO_MODELS_PATH:-/mnt/user/appdata/kokoro-fastapi-v1_1_zh/models}:/app/api/src/models
+      - ${KOKORO_VOICES_PATH:-/mnt/user/appdata/kokoro-fastapi-v1_1_zh/voices}:/app/api/src/voices
+      - ${KOKORO_OUTPUT_PATH:-/mnt/user/appdata/kokoro-fastapi-v1_1_zh/output}:/app/output
     deploy:
       resources:
         reservations:
