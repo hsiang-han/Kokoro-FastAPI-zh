@@ -335,14 +335,14 @@ PermissionError: [Errno 13] Permission denied: 'api/src/models/v1_1_zh'
 **修复方法（在 Unraid 终端执行，仅需首次部署前操作一次）：**
 
 ```bash
-# 1. 预创建挂载目录
+# 1. 预创建挂载目录 / Create mount directories
 mkdir -p /mnt/user/appdata/kokoro-fastapi-zh/models/v1_1_zh
 mkdir -p /mnt/user/appdata/kokoro-fastapi-zh/voices/v1_1_zh
 
-# 2. 将目录所有者设为 UID 1000（容器内 appuser）
+# 2. 将目录所有者设为 UID 1000（容器内 appuser） / Set owner to UID 1000 (container appuser)
 chown -R 1000:1000 /mnt/user/appdata/kokoro-fastapi-zh
 
-# 3. 设置读写权限
+# 3. 设置读写权限 / Set read-write permissions
 chmod -R 775 /mnt/user/appdata/kokoro-fastapi-zh
 ```
 
@@ -353,6 +353,18 @@ English:
 The container process runs as non-root user `appuser` (UID 1000). If mounted host directories are not owned by UID 1000, writes will fail with errors like:
 
 **Fix (run once in Unraid terminal before first deployment):**
+
+```bash
+# 1. Create mount directories
+mkdir -p /mnt/user/appdata/kokoro-fastapi-zh/models/v1_1_zh
+mkdir -p /mnt/user/appdata/kokoro-fastapi-zh/voices/v1_1_zh
+
+# 2. Set owner to UID 1000 (container appuser)
+chown -R 1000:1000 /mnt/user/appdata/kokoro-fastapi-zh
+
+# 3. Set read-write permissions
+chmod -R 775 /mnt/user/appdata/kokoro-fastapi-zh
+```
 
 > **Tip**: Unraid terminal is root by default, so these commands can be executed directly and only once before first deployment.
 
@@ -476,12 +488,23 @@ This fork defaults to v1.1-zh. If you want v1.0 (English model), use:
 - `models/v1_0/`
 - `voices/v1_0/`
 
+```bash
+mkdir -p ./models/v1_0
+mkdir -p ./voices/v1_0
+```
+
 2) Download model and voices:
 
 - Model repository (v1.0): https://huggingface.co/hexgrad/Kokoro-82M
 - Voice directory: https://huggingface.co/hexgrad/Kokoro-82M/tree/main/voices
 
 Recommended: use Hugging Face CLI (run in `docker/gpu`):
+
+```bash
+huggingface-cli download hexgrad/Kokoro-82M kokoro-v1_0.pth config.json --local-dir ./models/v1_0
+huggingface-cli download hexgrad/Kokoro-82M --include "voices/*.pt" --local-dir ./_tmp_kokoro_v1_0
+cp ./_tmp_kokoro_v1_0/voices/*.pt ./voices/v1_0/
+```
 
 > In Windows PowerShell, replace the last line with:
 >
