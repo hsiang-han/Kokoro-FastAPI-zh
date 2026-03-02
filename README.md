@@ -66,10 +66,11 @@ Migrated to `hexgrad/Kokoro-82M-v1.1-zh` with baseline adaptation based on the c
   ```
 
 2. 拉取代码（使用本仓库）
-   ```bash
-  git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
-  cd Kokoro-FastAPI-zh
-   ```
+
+    ```bash
+    git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
+    cd Kokoro-FastAPI-zh
+    ```
 
 3. 选择运行模式（只选一个）
    - NVIDIA 显卡：
