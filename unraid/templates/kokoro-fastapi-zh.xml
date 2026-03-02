@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Kokoro-FastAPI-zh</Name>
-  <Repository>ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:latest</Repository>
+  <Repository>ghcr.io/hsiang-han/kokoro-fastapi-zh-cpu:latest</Repository>
   <Registry>https://ghcr.io</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/issues</Support>
-  <Project>https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh</Project>
-  <Overview>OpenAI-compatible TTS API based on Kokoro-82M-v1.1-zh. Default uses CPU image. For GPU: change Repository to ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:latest, set USE_GPU=true, and add Extra Parameters: --gpus=all --runtime=nvidia (do not set as default on CPU hosts).</Overview>
+  <Support>https://github.com/hsiang-han/Kokoro-FastAPI-zh/issues</Support>
+  <Project>https://github.com/hsiang-han/Kokoro-FastAPI-zh</Project>
+  <Overview>OpenAI-compatible TTS API based on Kokoro-82M-v1.1-zh. Default uses CPU image. For GPU: change Repository to ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:latest, set USE_GPU=true, and add Extra Parameters: --gpus=all --runtime=nvidia (do not set as default on CPU hosts).</Overview>
   <Category>Network:Web Network:Other</Category>
   <WebUI>http://[IP]:[PORT:8880]/web</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/unraid/templates/kokoro-fastapi-zh.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/unraid-icon.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-zh/master/unraid/templates/kokoro-fastapi-zh.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-zh/master/assets/unraid-icon.png</Icon>
 
   <Config Name="WebUI Port" Target="8880" Default="8880" Mode="tcp" Description="Web/API exposed port" Type="Port" Display="always" Required="true" Mask="false">8880</Config>
 
