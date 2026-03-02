@@ -33,7 +33,7 @@
 可选 `.env` 示例：
 
 ```env
-KOKORO_IMAGE=ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:v1.1.0
+KOKORO_IMAGE=ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:v1.1.0
 KOKORO_PORT=8880
 KOKORO_MODELS_PATH=/mnt/user/appdata/kokoro-fastapi-zh/models
 KOKORO_VOICES_PATH=/mnt/user/appdata/kokoro-fastapi-zh/voices
@@ -50,7 +50,7 @@ DEFAULT_VOICE_CODE=z
 
 ### A. 准备 Unraid 模板
 
-仓库已新增模板：`unraid/templates/kokoro-fastapi-gpu.xml`。
+仓库已新增模板：`unraid/templates/kokoro-fastapi-zh.xml`。
 
 请确认以下字段指向你的仓库：
 
@@ -66,11 +66,11 @@ DEFAULT_VOICE_CODE=z
 
 1. Unraid 安装 Community Applications 插件。
 2. 在 CA 设置里添加你的模板仓库或模板 URL。
-3. 用户在 Apps 搜索 `Kokoro-FastAPI-v1.1-zh`，点击 Install。
+3. 用户在 Apps 搜索 `Kokoro-FastAPI-zh`，点击 Install。
 
 #### 方式 2（覆盖面更大）：提交到公共模板仓库
 
-把 `unraid/templates/kokoro-fastapi-gpu.xml` 提交到社区维护的模板仓库（或按其提交流程发 PR）。
+把 `unraid/templates/kokoro-fastapi-zh.xml` 提交到社区维护的模板仓库（或按其提交流程发 PR）。
 
 说明：不同时间点社区的收录仓库和流程可能变化，建议先查看当前 CA 社区文档/论坛置顶规则后再提交。
 

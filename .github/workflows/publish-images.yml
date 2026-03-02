@@ -20,7 +20,7 @@ jobs:
     env:
       REGISTRY: ghcr.io
       OWNER: ${{ github.repository_owner }}
-      REPO: ${{ github.event.repository.name }}
+      IMAGE_BASENAME: kokoro-fastapi-zh
       VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.version || github.ref_name || github.sha }}
     steps:
       - name: Checkout
@@ -29,7 +29,7 @@ jobs:
       - name: Normalize image namespace
         run: |
           echo "OWNER_LC=${OWNER,,}" >> "$GITHUB_ENV"
-          echo "REPO_LC=${REPO,,}" >> "$GITHUB_ENV"
+          echo "IMAGE_BASENAME_LC=${IMAGE_BASENAME,,}" >> "$GITHUB_ENV"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -45,24 +45,24 @@ jobs:
         run: |
           docker buildx bake cpu \
             --set cpu.platform=linux/amd64,linux/arm64 \
-            --set cpu.tags=${REGISTRY}/${OWNER_LC}/${REPO_LC}-cpu:${VERSION} \
+            --set cpu.tags=${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-cpu:${VERSION} \
             --push
 
       - name: Create CPU latest tag alias
         run: |
           docker buildx imagetools create \
-            --tag ${REGISTRY}/${OWNER_LC}/${REPO_LC}-cpu:latest \
-            ${REGISTRY}/${OWNER_LC}/${REPO_LC}-cpu:${VERSION}
+            --tag ${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-cpu:latest \
+            ${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-cpu:${VERSION}
 
       - name: Build and push GPU image
         run: |
           docker buildx bake gpu \
             --set gpu.platform=linux/amd64 \
-            --set gpu.tags=${REGISTRY}/${OWNER_LC}/${REPO_LC}-gpu:${VERSION} \
+            --set gpu.tags=${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-gpu:${VERSION} \
             --push
 
       - name: Create GPU latest tag alias
         run: |
           docker buildx imagetools create \
-            --tag ${REGISTRY}/${OWNER_LC}/${REPO_LC}-gpu:latest \
-            ${REGISTRY}/${OWNER_LC}/${REPO_LC}-gpu:${VERSION}
+            --tag ${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-gpu:latest \
+            ${REGISTRY}/${OWNER_LC}/${IMAGE_BASENAME_LC}-gpu:${VERSION}

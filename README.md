@@ -1,4 +1,4 @@
-[![CI](https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/actions/workflows/ci.yml)
+[![CI](https://github.com/hsiang-han/Kokoro-FastAPI-zh/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hsiang-han/Kokoro-FastAPI-zh/actions/workflows/ci.yml)
 
 ## 本版本变更说明 / Fork Changes
 
@@ -67,8 +67,8 @@ Migrated to `hexgrad/Kokoro-82M-v1.1-zh` with baseline adaptation based on the c
 
 2. 拉取代码（使用本仓库）
    ```bash
-   git clone https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh.git
-   cd Kokoro-FastAPI-v1.1_zh
+  git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
+  cd Kokoro-FastAPI-zh
    ```
 
 3. 选择运行模式（只选一个）
@@ -123,8 +123,8 @@ Follow the steps below. First-time deployment should work directly.
 
 2. Clone this repository
    ```bash
-   git clone https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh.git
-   cd Kokoro-FastAPI-v1.1_zh
+  git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
+  cd Kokoro-FastAPI-zh
    ```
 
 3. Choose one runtime mode
@@ -205,14 +205,14 @@ English:
 
 1. 进入 `Docker` 页面，打开 `Compose` / `Stacks` 管理页面
 2. 点击 `Add New Stack`
-3. Stack 名称建议填：`kokoro-fastapi-v1_1_zh-gpu`（或 `kokoro-fastapi-v1_1_zh-cpu`）
+3. Stack 名称建议填：`kokoro-fastapi-zh-gpu`（或 `kokoro-fastapi-zh-cpu`）
 4. 将下面对应 YAML 直接粘贴到编辑框
 
 English:
 
 1. Go to `Docker` page and open `Compose` / `Stacks`
 2. Click `Add New Stack`
-3. Suggested stack name: `kokoro-fastapi-v1_1_zh-gpu` (or `kokoro-fastapi-v1_1_zh-cpu`)
+3. Suggested stack name: `kokoro-fastapi-zh-gpu` (or `kokoro-fastapi-zh-cpu`)
 4. Paste one of the YAML files below into the editor
 
 #### 3) 粘贴 YAML（GPU 二选一）
@@ -222,14 +222,14 @@ English: Paste YAML (choose one)
 **GPU（NVIDIA）**
 
 ```yaml
-name: kokoro-fastapi-v1_1_zh-gpu
+name: kokoro-fastapi-zh-gpu
 
 services:
   kokoro-fastapi:
-    image: ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:latest
-    container_name: kokoro-fastapi-v1_1_zh-gpu
+    image: ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:latest
+    container_name: kokoro-fastapi-zh-gpu
     labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/unraid-icon.png
+      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-zh/master/assets/unraid-icon.png
     volumes:
       - /mnt/user/appdata/kokoro-fastapi-zh/models:/app/api/src/models
       - /mnt/user/appdata/kokoro-fastapi-zh/voices:/app/api/src/voices
@@ -257,14 +257,14 @@ services:
 **CPU**
 
 ```yaml
-name: kokoro-fastapi-v1_1_zh-cpu
+name: kokoro-fastapi-zh-cpu
 
 services:
   kokoro-fastapi:
-    image: ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:latest
-    container_name: kokoro-fastapi-v1_1_zh-cpu
+    image: ghcr.io/hsiang-han/kokoro-fastapi-zh-cpu:latest
+    container_name: kokoro-fastapi-zh-cpu
     labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/unraid-icon.png
+      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-zh/master/assets/unraid-icon.png
     volumes:
       - /mnt/user/appdata/kokoro-fastapi-zh/models:/app/api/src/models
       - /mnt/user/appdata/kokoro-fastapi-zh/voices:/app/api/src/voices
@@ -372,16 +372,16 @@ chmod -R 775 /mnt/user/appdata/kokoro-fastapi-zh
 
 - 推荐生产环境固定版本标签（例如：`v0.2.4-zh`），避免 `latest` 漂移。
 - 建议约定：
-- GPU：`ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:v0.2.4-zh`
-- CPU：`ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:v0.2.4-zh`
+- GPU：`ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:v0.2.4-zh`
+- CPU：`ghcr.io/hsiang-han/kokoro-fastapi-zh-cpu:v0.2.4-zh`
 - `latest` 可用于快速试用，不建议用于可复现部署。
 
 English:
 
 - In production, pin fixed tags (for example `v0.2.4-zh`) to avoid `latest` drift.
 - Suggested convention:
-- GPU: `ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-gpu:v0.2.4-zh`
-- CPU: `ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:v0.2.4-zh`
+- GPU: `ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:v0.2.4-zh`
+- CPU: `ghcr.io/hsiang-han/kokoro-fastapi-zh-cpu:v0.2.4-zh`
 - `latest` is fine for quick trials, but not recommended for reproducible deployment.
 
 ## 最小环境变量 / Minimal Environment Variables
@@ -584,8 +584,8 @@ For detailed source-based deployment steps, see the Chinese section above:
 Quick command reference:
 
 ```bash
-git clone https://github.com/hsiang-han/Kokoro-FastAPI-v1.1_zh.git
-cd Kokoro-FastAPI-v1.1_zh
+git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
+cd Kokoro-FastAPI-zh
 cd docker/gpu   # or: cd docker/cpu
 docker compose up --build
 ```

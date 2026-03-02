@@ -1,8 +1,8 @@
-name: kokoro-fastapi-v1_1_zh-gpu
+name: kokoro-fastapi-zh-gpu
 services:
   kokoro-tts:
-    image: kokoro-fastapi-v1.1_zh-gpu
-    container_name: kokoro-fastapi-v1_1_zh-gpu
+    image: kokoro-fastapi-zh-gpu
+    container_name: kokoro-fastapi-zh-gpu
     build:
       context: ../..
       dockerfile: docker/gpu/Dockerfile

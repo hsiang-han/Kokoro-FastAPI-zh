@@ -1,9 +1,9 @@
-name: kokoro-fastapi-v1_1_zh-rocm
+name: kokoro-fastapi-zh-rocm
 
 services:
   kokoro-tts:
-      image: kokoro-fastapi-v1.1_zh-rocm
-      container_name: kokoro-fastapi-v1_1_zh-rocm
+      image: kokoro-fastapi-zh-rocm
+      container_name: kokoro-fastapi-zh-rocm
       build:
         context: ../..
         dockerfile: docker/rocm/Dockerfile

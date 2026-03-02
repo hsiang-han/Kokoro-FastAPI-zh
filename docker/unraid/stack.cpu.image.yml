@@ -1,11 +1,11 @@
-name: kokoro-fastapi-v1_1_zh-cpu
+name: kokoro-fastapi-zh-cpu
 
 services:
   kokoro-fastapi:
-    image: ghcr.io/hsiang-han/kokoro-fastapi-v1.1_zh-cpu:latest
-    container_name: kokoro-fastapi-v1_1_zh-cpu
+    image: ghcr.io/hsiang-han/kokoro-fastapi-zh-cpu:latest
+    container_name: kokoro-fastapi-zh-cpu
     labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-v1.1_zh/master/assets/unraid-icon.png
+      net.unraid.docker.icon: https://raw.githubusercontent.com/hsiang-han/Kokoro-FastAPI-zh/master/assets/unraid-icon.png
     volumes:
       - /mnt/user/appdata/kokoro-fastapi-zh/models:/app/api/src/models
       - /mnt/user/appdata/kokoro-fastapi-zh/voices:/app/api/src/voices

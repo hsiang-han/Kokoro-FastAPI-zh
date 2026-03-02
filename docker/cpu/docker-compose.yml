@@ -1,8 +1,8 @@
 name: kokoro-fastapi-cpu
 services:
   kokoro-tts:
-    image: kokoro-fastapi-v1.1_zh-cpu
-    container_name: kokoro-fastapi-v1_1_zh-cpu
+    image: kokoro-fastapi-zh-cpu
+    container_name: kokoro-fastapi-zh-cpu
     build:
       context: ../..
       dockerfile: docker/cpu/Dockerfile
