@@ -123,10 +123,11 @@ Follow the steps below. First-time deployment should work directly.
      ```
 
 2. Clone this repository
-   ```bash
-  git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
-  cd Kokoro-FastAPI-zh
-   ```
+
+    ```bash
+    git clone https://github.com/hsiang-han/Kokoro-FastAPI-zh.git
+    cd Kokoro-FastAPI-zh
+    ```
 
 3. Choose one runtime mode
    - NVIDIA GPU:
