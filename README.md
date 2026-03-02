@@ -60,10 +60,10 @@ Migrated to `hexgrad/Kokoro-82M-v1.1-zh` with baseline adaptation based on the c
 1. 准备环境
    - 安装并启动 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
    - 打开终端，确认 Docker 可用：
-            ```bash
-            docker --version
-            docker compose version
-            ```
+  ```bash
+  docker --version
+  docker compose version
+  ```
 
 2. 拉取代码（使用本仓库）
    ```bash
