@@ -46,10 +46,10 @@ Migrated to `hexgrad/Kokoro-82M-v1.1-zh` with baseline adaptation based on the c
 
 ## 测试范围说明 / Testing Scope
 
-- 已完成实测：NVIDIA RTX 50 系列（Blackwell）+ CUDA 路线。
+- 已完成实测：NVIDIA RTX 50 系列（Blackwell）+ CUDA 路线，以及 CPU 路线。
 - 当前未实测：ROCm（受限于测试硬件条件），相关支持为配置级/依赖级适配，欢迎社区反馈。
 
-- Verified in real environment: NVIDIA RTX 50 series (Blackwell) + CUDA stack.
+- Verified in real environment: NVIDIA RTX 50 series (Blackwell) + CUDA stack, plus CPU path.
 - Not yet tested in real hardware: ROCm (hardware-limited on our side). Support is currently at configuration/dependency compatibility level; community feedback is welcome.
 
 ## 一条命令启动（预构建镜像） / One-command Start (Prebuilt Image)
@@ -96,7 +96,7 @@ NVIDIA GPU (also one command):
 docker run --rm --gpus all -p 8880:8880 ghcr.io/hsiang-han/kokoro-fastapi-zh-gpu:latest
 ```
 
-## 部署方式一：源码编译部署 / Source Deployment
+## 源码编译部署 / Source Deployment
 
 ### Docker Compose
 
@@ -226,7 +226,7 @@ English:
 - Unraid / Compose Stack (CPU): `docker/unraid/stack.cpu.image.yml`
 - Unraid CA template (unified CPU/GPU): `unraid/templates/kokoro-fastapi-zh.xml`
 
-### 部署方式二：Unraid 可视化 Docker Compose 部署（不需要编译源码）
+### Unraid 可视化 Docker Compose 部署（不需要编译源码）
 
 下面是只用 Unraid 网页界面完成部署的方法。
 
